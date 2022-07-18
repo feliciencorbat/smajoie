@@ -34,13 +34,12 @@ services:
       - traefik.http.routers.smajoie.entrypoints=http
       - traefik.http.routers.smajoie.rule=Host("test.smajoie.ch")
       - traefik.http.middlewares.smajoie-https-redirect.redirectscheme.scheme=https
-      - traefik.http.routers.smajoie.middlewares=troncs-https-redirect
+      - traefik.http.routers.smajoie.middlewares=smajoie-https-redirect
       - traefik.http.routers.smajoie-secure.entrypoints=https
       - traefik.http.routers.smajoie-secure.rule=Host("test.smajoie.ch")
       - traefik.http.routers.smajoie-secure.tls=true
       - traefik.http.routers.smajoie-secure.tls.certresolver=http
-      - traefik.http.routers.smajoie-secure.service=troncs
-      - traefik.http.services.smajoie.loadbalancer.server.port=8000
+      - traefik.http.routers.smajoie-secure.service=smajoie
       - traefik.docker.network=proxy
 
 networks:
