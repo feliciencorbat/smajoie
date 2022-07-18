@@ -1,0 +1,48 @@
+version: '2'
+services:
+  smajoie_db:
+    container_name: smajoie_db
+    image: mariadb:10.7
+    volumes:
+      - ./db:/var/lib/mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    
+  smajoie_wordpress:
+    container_name: smajoie_wordpress
+    depends_on:
+      - smajoie_db
+    image: wordpress:latest
+    volumes:
+      - ./data:/var/www/html/wp-content
+    ports:
+      - "8010:80"
+    restart: unless-stopped
+    networks:
+      - proxy
+    environment:
+      WORDPRESS_DB_HOST: smajoie_db
+      WORDPRESS_DB_USER: ${DB_USER}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${DB_NAME}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.smajoie.entrypoints=http
+      - traefik.http.routers.smajoie.rule=Host("test.smajoie.ch")
+      - traefik.http.middlewares.smajoie-https-redirect.redirectscheme.scheme=https
+      - traefik.http.routers.smajoie.middlewares=troncs-https-redirect
+      - traefik.http.routers.smajoie-secure.entrypoints=https
+      - traefik.http.routers.smajoie-secure.rule=Host("test.smajoie.ch")
+      - traefik.http.routers.smajoie-secure.tls=true
+      - traefik.http.routers.smajoie-secure.tls.certresolver=http
+      - traefik.http.routers.smajoie-secure.service=troncs
+      - traefik.http.services.smajoie.loadbalancer.server.port=8000
+      - traefik.docker.network=proxy
+
+networks:
+  proxy:
+    external: true
