@@ -39,7 +39,7 @@ services:
       - traefik.http.routers.smajoie-secure.rule=Host("test.smajoie.ch")
       - traefik.http.routers.smajoie-secure.tls=true
       - traefik.http.routers.smajoie-secure.tls.certresolver=http
-      - traefik.http.routers.smajoie-secure.service=smajoie
+      - traefik.http.routers.smajoie-secure.service=smajoie_wordpress
       - traefik.docker.network=proxy
 
 networks:
