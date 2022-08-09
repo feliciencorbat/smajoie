@@ -45,5 +45,6 @@ services:
       - traefik.docker.network=proxy
 
 networks:
+  smajoie_backend:
   proxy:
     external: true
