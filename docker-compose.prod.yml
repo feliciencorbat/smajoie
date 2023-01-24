@@ -19,6 +19,7 @@ services:
     container_name: smajoie_wordpress
     depends_on:
       - smajoie_db
+      - smajoie_redis
     image: wordpress:php8.1
     volumes:
       - ./data:/var/www/html/wp-content
@@ -26,7 +27,6 @@ services:
     restart: unless-stopped
     networks:
       - smajoie_backend
-      - smajoie_redis
       - proxy
     environment:
       WORDPRESS_DB_HOST: smajoie_db
