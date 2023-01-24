@@ -2,7 +2,7 @@ version: '2'
 services:
   smajoie_db:
     container_name: smajoie_db
-    image: mariadb:10.8
+    image: mariadb:10.10
     volumes:
       - ./db:/var/lib/mysql
     restart: unless-stopped
