@@ -48,6 +48,8 @@ services:
   smajoie_redis:
       container_name: smajoie_redis
       image: redis:7
+      ports:
+          - "6379:6379"
       restart: unless-stopped
       networks:
            - smajoie_backend
