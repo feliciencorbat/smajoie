@@ -34,7 +34,7 @@ services:
       WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
       WORDPRESS_DB_NAME: ${DB_NAME}
       WORDPRESS_TABLE_PREFIX: ${DB_PREFIX}
-      WORDPRESS_CONFIG_EXTRA:
+      WORDPRESS_CONFIG_EXTRA: |
           define( 'WP_REDIS_HOST', 'smajoie_redis' );
           define( 'WP_REDIS_PORT', 6379 );
     labels:
