@@ -46,7 +46,11 @@ services:
       - traefik.docker.network=proxy
       
   smajoie_redis:
+      container_name: smajoie_redis
       image: redis:7
+      restart: unless-stopped
+      networks:
+           - smajoie_backend
 
 networks:
   smajoie_backend:
