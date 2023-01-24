@@ -44,6 +44,9 @@ services:
       - traefik.http.routers.smajoie-secure.tls=true
       - traefik.http.routers.smajoie-secure.tls.certresolver=http
       - traefik.docker.network=proxy
+      
+  smajoie_redis:
+      image: redis:7
 
 networks:
   smajoie_backend:
